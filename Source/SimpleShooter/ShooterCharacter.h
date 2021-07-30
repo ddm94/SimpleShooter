@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "ShooterCharacter.generated.h"
 
+class AGun;
+
 UCLASS()
 class SIMPLESHOOTER_API AShooterCharacter : public ACharacter
 {
@@ -34,4 +36,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float RotationRate = 20;
+
+	UPROPERTY(EditDefaultsOnly) // We do not want to be able to edit this at runtime
+	TSubclassOf<AGun> GunClass; // It allows blueprint to restrict the classes that we can select from to only the classes that are subclasses of the Gun class
+
+	UPROPERTY()
+	AGun* Gun; // This is the actual gun - Once we have created an instance of the class, this is where we are going to store it
 };
