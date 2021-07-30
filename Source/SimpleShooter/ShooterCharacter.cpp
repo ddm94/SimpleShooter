@@ -16,6 +16,12 @@ void AShooterCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+
+	// Hide the bone with a specific name (in this case the gun that came with the mesh) on this character.
+	GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+
+	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("WeaponSocket"));
+	Gun->SetOwner(this);
 }
 
 // Called every frame
