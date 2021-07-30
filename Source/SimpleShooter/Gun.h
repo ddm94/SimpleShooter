@@ -15,6 +15,9 @@ public:
 	// Sets default values for this actor's properties
 	AGun();
 
+	// Allow us to pull the trigger on the gun from wherever we are binding input
+	void PullTrigger();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

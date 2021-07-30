@@ -42,4 +42,6 @@ private:
 
 	UPROPERTY()
 	AGun* Gun; // This is the actual gun - Once we have created an instance of the class, this is where we are going to store it
+
+	void Shoot();
 };
