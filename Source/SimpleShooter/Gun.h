@@ -10,8 +10,8 @@ UCLASS()
 class SIMPLESHOOTER_API AGun : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AGun();
 
@@ -22,15 +22,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	private:
+private:
 	UPROPERTY(VisibleAnywhere) // We do not want to be able to edit the pointers but we do want to be able to see the properties of those pointers.
-	USceneComponent* Root;
+	USceneComponent *Root;
 
 	UPROPERTY(VisibleAnywhere)
-	USkeletalMeshComponent* Mesh;
+	USkeletalMeshComponent *Mesh;
 
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* MuzzleFlash;
 };
