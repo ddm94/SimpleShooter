@@ -30,6 +30,10 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEvent, class AController *EventINstigator, AActor *DamageCauser) override;
 
+	// UFUNCTION makes it visible to Blueprint
+	UFUNCTION(BlueprintPure) // Pure function - we are not making any changes to the state of the game when calling this function - the only effect it has is in the outputs that it produces
+	bool IsDead() const; // const because we do not expect it to change any of the state of the ShooterCharacter.
+
 private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
