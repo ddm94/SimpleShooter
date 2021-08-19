@@ -15,6 +15,8 @@ void AShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Health = MaxHealth;
+
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
 
 	// Hide the bone with a specific name (in this case the gun that came with the mesh) on this character.
@@ -46,38 +48,47 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputCo
 	PlayerInputComponent->BindAction(TEXT("Shoot"), EInputEvent::IE_Pressed, this, &AShooterCharacter::Shoot);
 }
 
+float AShooterCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEvent, class AController *EventInstigator, AActor *DamageCauser)
+{
+	float DamageToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	// If dmg is > than the amount of health left - dmg be the amount of health
+	DamageToApply = FMath::Min(Health, DamageToApply);
+	Health -= DamageToApply;
+
+	UE_LOG(LogTemp, Warning, TEXT("Health left %f"), Health);
+
+	return DamageToApply;
+}
+
 void AShooterCharacter::MoveForward(float AxisValue)
 {
 	AddMovementInput(GetActorForwardVector() * AxisValue);
 }
 
 // TIP - Instead of creating our own function, directly call the parent function in APawn - AddControllerPitchInput
-// void AShooterCharacter::LookUp(float AxisValue) 
+// void AShooterCharacter::LookUp(float AxisValue)
 // {
 // 	AddControllerPitchInput(AxisValue);
 // }
 
-void AShooterCharacter::MoveRight(float AxisValue) 
+void AShooterCharacter::MoveRight(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector() * AxisValue);
 }
 
-void AShooterCharacter::LookUpRate(float AxisValue) 
+void AShooterCharacter::LookUpRate(float AxisValue)
 {
 	// If we multiply AxisValue by RotationRate we get a speed but what we want is a distance
 	// We convert the speed to distance and to do so we multiply by time.
 	AddControllerPitchInput(AxisValue * RotationRate * GetWorld()->GetDeltaSeconds());
 }
 
-void AShooterCharacter::LookRightRate(float AxisValue) 
+void AShooterCharacter::LookRightRate(float AxisValue)
 {
 	AddControllerYawInput(AxisValue * RotationRate * GetWorld()->GetDeltaSeconds());
 }
 
-void AShooterCharacter::Shoot() 
+void AShooterCharacter::Shoot()
 {
 	Gun->PullTrigger();
 }
-
-
-
