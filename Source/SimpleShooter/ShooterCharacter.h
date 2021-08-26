@@ -34,12 +34,13 @@ public:
 	UFUNCTION(BlueprintPure) // Pure function - we are not making any changes to the state of the game when calling this function - the only effect it has is in the outputs that it produces
 	bool IsDead() const; // const because we do not expect it to change any of the state of the ShooterCharacter.
 
+	void Shoot();
+
 private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
 	void LookUpRate(float AxisValue);
 	void LookRightRate(float AxisValue);
-	void Shoot();
 
 	UPROPERTY(EditAnywhere)
 	float RotationRate = 20;

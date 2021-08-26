@@ -8,12 +8,10 @@ void AShooterAIController::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Get hold of the pawn Actor
-    // Get hold of the AI Actor
-
     if (AIBehavior != nullptr)
     {
-        //RunBehaviorTree(AIBehavior);
+        RunBehaviorTree(AIBehavior);
+        
         APawn *PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 
         GetBlackboardComponent()->SetValueAsVector(TEXT("StartLocation"), GetPawn()->GetActorLocation());
