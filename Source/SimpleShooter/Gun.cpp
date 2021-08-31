@@ -40,8 +40,11 @@ void AGun::PullTrigger()
 	FVector EndPoint = Location + Rotation.Vector() * MaxRange;
 
 	FHitResult Hit;
-	// TODO: LineTrace
-	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, Location, EndPoint, ECollisionChannel::ECC_GameTraceChannel1);
+	FCollisionQueryParams Params;
+	// Ignore
+	Params.AddIgnoredActor(this); // The gun
+	Params.AddIgnoredActor(GetOwner()); // The owner of this gun
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, Location, EndPoint, ECollisionChannel::ECC_GameTraceChannel1, Params);
 
 	if (bSuccess)
 	{
