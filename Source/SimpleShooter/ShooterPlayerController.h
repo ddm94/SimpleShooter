@@ -18,6 +18,15 @@ public:
 	virtual void GameHasEnded(class AActor *EndGameFocus = nullptr, bool bIsWinner = false ) override;
 	
 	private:
+
+	UPROPERTY(EditAnywhere)
+	// Forward declare instead of doing any includes
+	TSubclassOf<class UUserWidget> WinScreenClass;
+	
+	UPROPERTY(EditAnywhere)
+	// Forward declare instead of doing any includes
+	TSubclassOf<class UUserWidget> LoseScreenClass;
+
 	UPROPERTY(EditAnywhere)
 	float RestartDelay = 5.0f;
 
