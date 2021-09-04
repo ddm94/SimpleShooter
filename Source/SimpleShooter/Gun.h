@@ -34,9 +34,16 @@ private:
 	USkeletalMeshComponent *Mesh;
 
 	UPROPERTY(EditAnywhere)
-	UParticleSystem* MuzzleFlash;
+	UParticleSystem *MuzzleFlash;
+
 	UPROPERTY(EditAnywhere)
-	UParticleSystem* ImpactEffect;
+	USoundBase *MuzzleSound;
+
+	UPROPERTY(EditAnywhere)
+	UParticleSystem *ImpactEffect;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase *ImpactSound;
 
 	UPROPERTY(EditAnywhere)
 	float MaxRange = 1000;
@@ -44,8 +51,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float Damage = 10;
 
-	bool GunTrace(FHitResult& Hit, FVector& ShotDirection);
+	bool GunTrace(FHitResult &Hit, FVector &ShotDirection);
 
-	AController* GetOwnerController() const;
-
+	AController *GetOwnerController() const;
 };

@@ -15,20 +15,27 @@ class SIMPLESHOOTER_API AShooterPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
-	virtual void GameHasEnded(class AActor *EndGameFocus = nullptr, bool bIsWinner = false ) override;
-	
-	private:
+	virtual void GameHasEnded(class AActor *EndGameFocus = nullptr, bool bIsWinner = false) override;
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UUserWidget> HUDClass;
 
 	UPROPERTY(EditAnywhere)
 	// Forward declare instead of doing any includes
 	TSubclassOf<class UUserWidget> WinScreenClass;
-	
+
 	UPROPERTY(EditAnywhere)
-	// Forward declare instead of doing any includes
 	TSubclassOf<class UUserWidget> LoseScreenClass;
 
 	UPROPERTY(EditAnywhere)
 	float RestartDelay = 5.0f;
 
 	FTimerHandle RestartTimer;
+
+	UPROPERTY()
+	UUserWidget *HUD;
 };

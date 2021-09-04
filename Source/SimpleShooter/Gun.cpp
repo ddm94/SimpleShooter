@@ -22,6 +22,7 @@ void AGun::PullTrigger()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("You have been shot!"));
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
+	UGameplayStatics::SpawnSoundAttached(MuzzleSound, Mesh, TEXT("MuzzleFlashSocket"));
 
 	FHitResult Hit;
 	FVector ShotDirection;
@@ -31,6 +32,7 @@ void AGun::PullTrigger()
 	{
 		//DrawDebugPoint(GetWorld(), Hit.Location, 10, FColor::Red, true);
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), ImpactSound, Hit.Location);
 
 		AActor *HitActor = Hit.GetActor();
 
